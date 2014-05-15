@@ -25,10 +25,10 @@ module Algorithm
 			# evaluator :: an instance of evaluator
 			#
 			# need block for generate an initial (random) code of a gene
-			def initialize(population_size, evaluator)
+			def initialize(population_size, evaluator, opts = {})
 				@evaluator = evaluator
 				@members = Array.new(population_size){
-					Algorithm::Genetic::Gene.new(yield, evaluator)
+					Algorithm::Genetic::Gene.new(yield, evaluator, opts)
 				}
 				@generation = 0
 			end

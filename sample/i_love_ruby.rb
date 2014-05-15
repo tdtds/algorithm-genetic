@@ -3,6 +3,7 @@
 # Algorithm::Genetic sample: say 'I Love Ruby'
 #
 require 'algorithm/genetic'
+require 'algorithm/genetic/mutation/shift'
 
 class StringEvaluator < Algorithm::Genetic::Evaluator
 	def initialize(goal)
@@ -31,9 +32,9 @@ def show(population)
 end
 
 goal = 'I love Ruby'.split(//)
-size_of_population = 10
+size = 10
 evaluator = StringEvaluator.new(goal)
-population = Algorithm::Genetic::Population.new(size_of_population, evaluator) do
+population = Algorithm::Genetic::Population.new(size, evaluator, mutation: :shift) do
 	(' ' * goal.length).each_byte.map{|c| (rand * 255).to_i.chr}
 end
 show(population)
@@ -43,5 +44,5 @@ begin
 		show(population)
 	end
 rescue Algorithm::Genetic::FinishInformation => e
-	puts "Got '#{e.gene.code}' at generation #{population.generation}."
+	puts "Got '#{e.gene.code.join}' at generation #{population.generation}."
 end
