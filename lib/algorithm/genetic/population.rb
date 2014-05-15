@@ -23,7 +23,7 @@ module Algorithm
 			# increment the generation: senection, crossover and mutation
 			def generate
 				@generation += 1
-				children = @members[0].cross(@members[1])
+				children = @members[0].crossover(@members[1])
 				@members = @members[0, @members.length - 2] + children
 				@members.each do |m|
 					m.mutate!(0.5)

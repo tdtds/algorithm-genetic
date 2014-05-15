@@ -22,10 +22,10 @@ module Algorithm
 				@fitness = @evaluator.fitness(self)
 			end
 
-			# cross with a partner, returning a couple of children
+			# crossover with a partner, returning a couple of children
 			#
 			# partner :: a partner's gene
-			def cross(partner)
+			def crossover(partner)
 				pivot = (code.length / 2.0).round
 				child1 = code[0, pivot] + partner.code[pivot, pivot]
 				child2 = partner.code[0, pivot] + code[pivot, pivot]
