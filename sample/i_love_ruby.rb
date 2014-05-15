@@ -11,30 +11,30 @@ class StringEvaluator < Algorithm::Genetic::Evaluator
 
 	def fitness(gene)
 		total = 0
-		gene.code.each_byte.with_index do |c, i|
+		gene.code.each_with_index do |c, i|
 			total += (c.ord - @goal[i].ord) ** 2
 		end
 		return total
 	end
 
 	def finish?(gene)
-		gene.code == @goal
+		gene.code.join == @goal.join
 	end
 end
 
 def show(population)
 	puts "Generation: #{population.generation}"
 	population.each do |gene|
-		puts "  #{gene.code.inspect} (#{gene.fitness})"
+		puts "  #{gene.code.join.inspect} (#{gene.fitness})"
 	end
 	puts
 end
 
-goal = 'I love Ruby'
+goal = 'I love Ruby'.split(//)
 size_of_population = 10
 evaluator = StringEvaluator.new(goal)
 population = Algorithm::Genetic::Population.new(size_of_population, evaluator) do
-	(' ' * goal.length).each_byte.map{|c| (rand * 255).to_i.chr}.join
+	(' ' * goal.length).each_byte.map{|c| (rand * 255).to_i.chr}
 end
 show(population)
 begin
