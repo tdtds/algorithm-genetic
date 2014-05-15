@@ -6,13 +6,6 @@ module Algorithm
 		class Gene
 			attr_reader :code, :fitness
 
-			# generate random gene, returning a new gene instance
-			#
-			# length :: length of the gene
-			def self.random(evaluator, length)
-				self.new((' ' * length).each_byte.map{|c| (rand * 255).to_i.chr}.join, evaluator)
-			end
-
 			# constructor of Gene
 			#
 			# code :: initial code as Array

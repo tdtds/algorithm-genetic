@@ -33,7 +33,9 @@ end
 goal = 'I love Ruby'
 size_of_population = 10
 evaluator = StringEvaluator.new(goal)
-population = Algorithm::Genetic::Population.new(goal.length, size_of_population, evaluator)
+population = Algorithm::Genetic::Population.new(size_of_population, evaluator) do
+	(' ' * goal.length).each_byte.map{|c| (rand * 255).to_i.chr}.join
+end
 show(population)
 begin
 	loop do
