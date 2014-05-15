@@ -40,6 +40,6 @@ begin
 		population.generate
 		show(population)
 	end
-rescue StandardError
-	show(population)
+rescue Algorithm::Genetic::FinishInformation => e
+	puts "Got '#{e.gene.code}' at generation #{population.generation}."
 end

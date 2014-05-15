@@ -1,6 +1,18 @@
 module Algorithm
 	module Genetic
 		#
+		# = finish information
+		#
+		class FinishInformation < StandardError
+			attr_reader :gene
+
+			def initialize(gene)
+				@gene = gene
+				super('finished')
+			end
+		end
+
+		#
 		# = population management class
 		#
 		class Population
@@ -16,22 +28,15 @@ module Algorithm
 				@members = Array.new(population_size){
 					Algorithm::Genetic::Gene.random(evaluator, code_length)
 				}
-				sort!
 				@generation = 0
 			end
 
 			# increment the generation: senection, crossover and mutation
 			def generate
 				@generation += 1
-				children = @members[0].crossover(@members[1])
-				@members = @members[0, @members.length - 2] + children
-				@members.each do |m|
-					m.mutate!(0.5)
-					if @evaluator.finish?(m)
-						sort!
-						raise StandardError.new(@generation.to_s)
-					end
-				end
+				select(@members.length - 2)
+				crossover
+				mutate
 				sort!
 			end
 
@@ -44,6 +49,25 @@ module Algorithm
 			def sort!
 				@members.sort! do |a, b|
 					a.fitness <=> b.fitness
+				end
+			end
+
+			def select(num)
+				sort!
+				@members = @members[0, num]
+			end
+
+			def crossover
+				@members += @members[0].crossover(@members[1])
+			end
+
+			def mutate
+				@members.each do |m|
+					m.mutate!(0.5)
+					if @evaluator.finish?(m)
+						sort!
+						raise FinishInformation.new(m)
+					end
 				end
 			end
 		end
