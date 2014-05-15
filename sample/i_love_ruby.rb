@@ -16,53 +16,30 @@ class StringEvaluator < Algorithm::Genetic::Evaluator
 		end
 		return total
 	end
-end
 
-class Population
-	def initialize(goal, size)
-		@goal = goal
-		evaluator = StringEvaluator.new(goal)
-		@members = Array.new(size){ Algorithm::Genetic::Gene.random(evaluator, @goal.length) }
-		sort!
-		@generation = 0
-	end
-
-	def sort!
-		@members.sort! do |a, b|
-			a.fitness <=> b.fitness
-		end
-	end
-
-	def show
-		puts "Generation: #{@generation}"
-		@members.each do |m|
-			puts "  #{m.code.inspect} (#{m.fitness})"
-		end
-		puts
-	end
-
-	def generate
-		@generation += 1
-		children = @members[0].cross(@members[1])
-		@members = @members[0, @members.length - 2] + children
-		@members.each do |m|
-			m.mutate!(0.5)
-			if m.code == @goal
-				sort!
-				show
-				raise StandardError.new(@generation.to_s)
-			end
-		end
-		sort!
+	def finish?(gene)
+		gene.code == @goal
 	end
 end
 
-popuration = Population.new('I love Ruby', 10)
-popuration.show
+def show(population)
+	puts "Generation: #{population.generation}"
+	population.each do |gene|
+		puts "  #{gene.code.inspect} (#{gene.fitness})"
+	end
+	puts
+end
+
+goal = 'I love Ruby'
+size_of_population = 10
+evaluator = StringEvaluator.new(goal)
+population = Algorithm::Genetic::Population.new(goal.length, size_of_population, evaluator)
+show(population)
 begin
 	loop do
-		popuration.generate
-		popuration.show
+		population.generate
+		show(population)
 	end
 rescue StandardError
+	show(population)
 end
