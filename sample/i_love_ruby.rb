@@ -34,7 +34,10 @@ end
 goal = 'I love Ruby'.split(//)
 size = 10
 evaluator = StringEvaluator.new(goal)
-population = Algorithm::Genetic::Population.new(size, evaluator, mutation: :shift) do
+population = Algorithm::Genetic::Population.new(
+	size, evaluator, 
+	mutation: :shift
+) do
 	(' ' * goal.length).each_byte.map{|c| (rand * 255).to_i.chr}
 end
 show(population)
