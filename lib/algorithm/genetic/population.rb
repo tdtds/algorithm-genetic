@@ -26,9 +26,9 @@ module Algorithm
 			# opts :: hash of options
 			#
 			# options:
-			#   :select    :: module name including select method
+			#   :selection :: module name including select method
 			#   :crossover :: module name including crossover method
-			#   :mutate    :: module name including mutate method
+			#   :mutation  :: module name including mutate method
 			#
 			# need block for generate an initial (random) code of a gene
 			def initialize(population_size, evaluator, opts = {})
