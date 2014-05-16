@@ -4,6 +4,7 @@
 #
 require 'algorithm/genetic'
 require 'algorithm/genetic/selection/elite'
+require 'algorithm/genetic/crossover/oder'
 require 'algorithm/genetic/mutation/shift'
 
 class StringEvaluator < Algorithm::Genetic::Evaluator

@@ -71,7 +71,7 @@ module Algorithm
 			end
 
 			def crossover
-				@members += @members[0].crossover(@members[1])
+				@members += @members[0].crossover_with(@members[1])
 			end
 
 			def mutate
