@@ -12,11 +12,11 @@ module Algorithm
 				raise NotImplementedError.new("implement 'fitness' method by yourself.")
 			end
 
-			# judgment of completion
+			# judgment of termination
 			#
 			# gene :: a instance of Gene class
-			def finish?(gene)
-				raise NotImplementedError.new("implement 'finish?' method by yourself.")
+			def terminated?(gene)
+				raise NotImplementedError.new("implement 'terminated?' method by yourself.")
 			end
 		end
 	end

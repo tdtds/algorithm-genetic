@@ -20,7 +20,7 @@ class StringEvaluator < Algorithm::Genetic::Evaluator
 		return total
 	end
 
-	def finish?(gene)
+	def terminated?(gene)
 		gene.code.join == @goal.join
 	end
 end
@@ -50,6 +50,6 @@ begin
 		population.generate
 		show(population)
 	end
-rescue Algorithm::Genetic::FinishInformation => e
+rescue Algorithm::Genetic::Terminated => e
 	puts "Got '#{e.gene.code.join}' at generation #{population.generation}."
 end

@@ -1,14 +1,14 @@
 module Algorithm
 	module Genetic
 		#
-		# = finish information
+		# = terminated exception
 		#
-		class FinishInformation < StandardError
+		class Terminated < StandardError
 			attr_reader :gene
 
 			def initialize(gene)
 				@gene = gene
-				super('finished')
+				super('terminated.')
 			end
 		end
 
@@ -77,9 +77,9 @@ module Algorithm
 			def mutate
 				@members.each do |m|
 					m.mutate!(0.5)
-					if @evaluator.finish?(m)
+					if @evaluator.terminated?(m)
 						sort!
-						raise FinishInformation.new(m)
+						raise Terminated.new(m)
 					end
 				end
 			end
