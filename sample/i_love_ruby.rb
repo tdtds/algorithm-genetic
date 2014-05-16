@@ -21,7 +21,7 @@ class StringEvaluator < Algorithm::Genetic::Evaluator
 	end
 
 	def terminated?(gene)
-		gene.code.join == @goal.join
+		gene.code == @goal
 	end
 end
 
