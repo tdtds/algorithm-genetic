@@ -37,12 +37,16 @@ module Algorithm
 					Algorithm::Genetic::Gene.new(yield, evaluator, opts)
 				}
 				@generation = 0
+				if opts[:selection]
+					selection_module = opts[:selection].to_s.capitalize
+					self.extend(Algorithm::Genetic::Selection.const_get(selection_module))
+				end
 			end
 
 			# increment the generation: senection, crossover and mutation
 			def generate
 				@generation += 1
-				select(@members.length - 2)
+				select!(@members.length - 2)
 				crossover
 				mutate
 				sort!
@@ -60,9 +64,10 @@ module Algorithm
 				end
 			end
 
-			def select(num)
-				sort!
-				@members = @members[0, num]
+			def select!(num)
+				@members = select(@members, num) do |a, b|
+					a.fitness <=> b.fitness
+				end
 			end
 
 			def crossover

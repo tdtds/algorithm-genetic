@@ -3,6 +3,7 @@
 # Algorithm::Genetic sample: say 'I Love Ruby'
 #
 require 'algorithm/genetic'
+require 'algorithm/genetic/selection/elite'
 require 'algorithm/genetic/mutation/shift'
 
 class StringEvaluator < Algorithm::Genetic::Evaluator
@@ -35,7 +36,9 @@ goal = 'I love Ruby'.split(//)
 size = 10
 evaluator = StringEvaluator.new(goal)
 population = Algorithm::Genetic::Population.new(
-	size, evaluator, 
+	size, evaluator,
+	selection: :elite,
+	crossover: :oder,
 	mutation: :shift
 ) do
 	(' ' * goal.length).each_byte.map{|c| (rand * 255).to_i.chr}
