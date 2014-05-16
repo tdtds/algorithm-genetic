@@ -23,6 +23,12 @@ module Algorithm
 			# code_length :: size of code
 			# population_size :: size of population
 			# evaluator :: an instance of evaluator
+			# opts :: hash of options
+			#
+			# options:
+			#   :select    :: module name including select method
+			#   :crossover :: module name including crossover method
+			#   :mutate    :: module name including mutate method
 			#
 			# need block for generate an initial (random) code of a gene
 			def initialize(population_size, evaluator, opts = {})
