@@ -22,7 +22,7 @@ module Algorithm
 			#
 			# code_length :: size of code
 			# population_size :: size of population
-			# evaluator :: an instance of evaluator
+			# evaluator :: an Evaluator instance or Proc instance returns Evaluator instance
 			# opts :: hash of options
 			#
 			# options:
@@ -77,7 +77,7 @@ module Algorithm
 			def mutate
 				@members.each do |m|
 					m.mutate!(0.5)
-					if @evaluator.terminated?(m)
+					if m.terminated?
 						sort!
 						raise Terminated.new(m)
 					end
