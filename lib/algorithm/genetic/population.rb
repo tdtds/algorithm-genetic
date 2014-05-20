@@ -60,13 +60,13 @@ module Algorithm
 		private
 			def sort!
 				@members.sort! do |a, b|
-					a.fitness <=> b.fitness
+					b.fitness <=> a.fitness
 				end
 			end
 
 			def select!(num)
 				@members = select(@members, num) do |a, b|
-					a.fitness <=> b.fitness
+					b.fitness <=> a.fitness
 				end
 			end
 

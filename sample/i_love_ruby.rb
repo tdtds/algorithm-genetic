@@ -15,7 +15,7 @@ class StringEvaluator < Algorithm::Genetic::Evaluator
 	def fitness(gene)
 		total = 0
 		gene.code.each_with_index do |c, i|
-			total += (c.ord - @goal[i].ord) ** 2
+			total -= (c.ord - @goal[i].ord) ** 2
 		end
 		return total
 	end
