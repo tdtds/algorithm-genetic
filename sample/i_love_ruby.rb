@@ -4,7 +4,7 @@
 #
 require 'algorithm/genetic'
 require 'algorithm/genetic/selection/elite'
-require 'algorithm/genetic/crossover/oder'
+require 'algorithm/genetic/crossover/point'
 require 'algorithm/genetic/mutation/shift'
 
 class StringEvaluator < Algorithm::Genetic::Evaluator
@@ -39,7 +39,7 @@ evaluator = StringEvaluator.new(goal)
 population = Algorithm::Genetic::Population.new(
 	size, evaluator,
 	selection: :elite,
-	crossover: :oder,
+	crossover: :point,
 	mutation: :shift
 ) do
 	(' ' * goal.length).each_byte.map{|c| (rand * 255).to_i.chr}
