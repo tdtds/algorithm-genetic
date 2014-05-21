@@ -38,9 +38,9 @@ size = 10
 evaluator = StringEvaluator.new(goal)
 population = Algorithm::Genetic::Population.new(
 	size, evaluator,
-	selection: :elite,
-	crossover: :point,
-	mutation: :shift
+	selection: [:elite, goal.length - 2],
+	crossover: [:point, 1],
+	mutation: [:shift]
 ) do
 	(' ' * goal.length).each_byte.map{|c| (rand * 255).to_i.chr}
 end
