@@ -12,7 +12,7 @@ module Algorithm::Genetic::Crossover
 
 	private
 		def mate(p1, p2, point)
-			child = p1[0, cut]
+			child = p1[0, point]
 			p2.each do |g|
 				child << g unless child.index(g)
 			end
