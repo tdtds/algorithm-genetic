@@ -38,7 +38,7 @@ size = 10
 evaluator = StringEvaluator.new(goal)
 population = Algorithm::Genetic::Population.new(
 	size, evaluator,
-	selection: [:elite, goal.length - 2],
+	selection: [:elite, size - 2],
 	crossover: [:point, 1],
 	mutation: [:shift]
 ) do
