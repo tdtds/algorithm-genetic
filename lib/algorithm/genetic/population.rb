@@ -16,6 +16,7 @@ module Algorithm
 		# = population management class
 		#
 		class Population
+			include Enumerable
 			attr_reader :generation
 		
 			# constructor of population
@@ -57,7 +58,8 @@ module Algorithm
 
 			# iterate each member
 			def each
-				@members.each {|m| yield m }
+				return @members.each unless block_given?
+				@members.each{|m| yield m }
 			end
 		
 		private
